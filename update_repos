@@ -1,0 +1,20 @@
+#!/bin/bash
+
+repos="/home/aaron/repos"
+location="/home/aaron/plugins/"
+
+while read repo; do
+
+  if [ ! -d "${location}${repo}" ]; then
+    cd ${location}
+    echo ${repo}
+    git clone https://github.com/OpenMediaVault-Plugin-Developers/${repo}.git
+  else
+    cd ${location}${repo}
+    echo ${repo}
+    git pull
+  fi
+
+  git status
+
+done < ${repos}

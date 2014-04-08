@@ -1,0 +1,23 @@
+#!/bin/bash
+
+repos="/home/aaron/repos"
+tx="/home/aaron/plugins/.tx/config"
+
+cat <<EOF > ${tx}
+[main]
+host = https://www.transifex.com
+lang_map = de: de_DE, it: it_IT, ru: ru_RU, uk: uk_UK, da: da_DA, no: no_NO, sv: sv_SV
+type = PO
+EOF
+
+while read repo; do
+
+  cat <<EOF >> ${tx}
+[${repo}.${repo}pot]
+file_filter = ${repo}/usr/share/openmediavault/locale/<lang>/${repo}.po
+source_file = ${repo}/usr/share/openmediavault/locale/${repo}.pot
+source_lang = en
+
+EOF
+
+done < ${repos}
