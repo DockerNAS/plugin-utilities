@@ -1,6 +1,6 @@
 #!/bin/bash
 
-repos="/home/aaron/repos"
+repos="/home/aaron/plugins/plugin-utilities/repos"
 location="/home/aaron/plugins/"
 
 while read repo; do
