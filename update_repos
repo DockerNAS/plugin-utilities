@@ -15,6 +15,7 @@ while read repo; do
     git pull
   fi
 
+  cd ${location}${repo}
   git status
 
 done < ${repos}
