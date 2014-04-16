@@ -13,6 +13,7 @@ cat <<EOF > ${tx_file}
 host = https://www.transifex.com
 lang_map = de: de_DE, it: it_IT, ru: ru_RU, uk: uk_UK, da: da_DA, no: no_NO, sv: sv_SV
 type = PO
+
 EOF
 
 while read repo; do
