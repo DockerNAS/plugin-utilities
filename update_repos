@@ -1,17 +1,19 @@
 #!/bin/bash
 
 repos="/home/aaron/plugins/plugin-utilities/repos"
+misc="/home/aaron/plugins/plugin-utilities/misc"
 location="/home/aaron/plugins/"
 
+# plugins
 while read repo; do
+
+  echo ${repo}
 
   if [ ! -d "${location}${repo}" ]; then
     cd ${location}
-    echo ${repo}
     git clone https://github.com/OpenMediaVault-Plugin-Developers/${repo}.git
   else
     cd ${location}${repo}
-    echo ${repo}
     git pull
   fi
 
@@ -19,3 +21,22 @@ while read repo; do
   git status
 
 done < ${repos}
+
+# misc repos
+while read repo; do
+
+  echo ${repo}
+
+  if [ ! -d "${location}${repo}" ]; then
+    cd ${location}
+    git clone https://github.com/OpenMediaVault-Plugin-Developers/${repo}.git
+  else
+    cd ${location}${repo}
+    git pull
+  fi
+
+  cd ${location}${repo}
+  git status
+
+done < ${misc}
+
