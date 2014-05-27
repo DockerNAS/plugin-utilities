@@ -3,6 +3,7 @@
 repos="/home/aaron/plugins/plugin-utilities/repos"
 misc="/home/aaron/plugins/plugin-utilities/misc"
 location="/home/aaron/plugins/"
+omv_code="openmediavault-code"
 
 # plugins
 while read repo; do
@@ -40,3 +41,13 @@ while read repo; do
 
 done < ${misc}
 
+# OpenMediaVault
+echo "OpenMediaVault"
+
+if [ ! -d "${location}${omv_code}" ]; then
+  cd ${location}
+  svn checkout svn://svn.code.sf.net/p/openmediavault/code/trunk ${omv_code}
+else
+  cd ${location}${omv_code}
+  svn update
+fi
