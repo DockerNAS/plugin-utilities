@@ -52,9 +52,6 @@ while read repo; do
   author=$(echo ${repo} | cut -f1 -d/)
   project=$(echo ${repo} | cut -f2 -d/)
 
-  echo ${author}
-  echo ${project}
-
   if [ ! -d "${location}${project}" ]; then
     cd ${location}
     git clone https://github.com/${author}/${project}.git
