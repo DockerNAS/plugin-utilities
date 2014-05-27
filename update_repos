@@ -1,9 +1,12 @@
 #!/bin/bash
 
-repos="/home/aaron/plugins/plugin-utilities/repos"
-misc="/home/aaron/plugins/plugin-utilities/misc"
 location="/home/aaron/plugins/"
+subdir="${location}plugin-utilities/"
+repos="${subdir}repos"
+misc="${subdir}misc"
+other="${subdir}other"
 omv_code="openmediavault-code"
+developer="OpenMediaVault-Plugin-Developers"
 
 # plugins
 while read repo; do
@@ -12,7 +15,7 @@ while read repo; do
 
   if [ ! -d "${location}${repo}" ]; then
     cd ${location}
-    git clone https://github.com/OpenMediaVault-Plugin-Developers/${repo}.git
+    git clone https://github.com/${developer}/${repo}.git
   else
     cd ${location}${repo}
     git pull
@@ -30,7 +33,7 @@ while read repo; do
 
   if [ ! -d "${location}${repo}" ]; then
     cd ${location}
-    git clone https://github.com/OpenMediaVault-Plugin-Developers/${repo}.git
+    git clone https://github.com/${developer}/${repo}.git
   else
     cd ${location}${repo}
     git pull
@@ -40,6 +43,30 @@ while read repo; do
   git status
 
 done < ${misc}
+
+# other repos
+while read repo; do
+
+  echo ${repo}
+
+  author=$(echo ${repo} | cut -f1 -d/)
+  project=$(echo ${repo} | cut -f2 -d/)
+
+  echo ${author}
+  echo ${project}
+
+  if [ ! -d "${location}${project}" ]; then
+    cd ${location}
+    git clone https://github.com/${author}/${project}.git
+  else
+    cd ${location}${project}
+    git pull
+  fi
+
+  cd ${location}${project}
+  git status
+
+done < ${other}
 
 # OpenMediaVault
 echo "OpenMediaVault"
