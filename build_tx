@@ -1,7 +1,10 @@
 #!/bin/bash
 
-repos="/home/aaron/plugins/plugin-utilities/repos"
-tx_dir="/home/aaron/plugins/.tx"
+location="/home/aaron/plugins/"
+subdir="${location}plugin-utilities/"
+repos="${subdir}repos"
+other="${subdir}other"
+tx_dir="${location}.tx"
 tx_file="${tx_dir}/config"
 
 if [ ! -d "${tx_dir}" ]; then
@@ -16,6 +19,7 @@ type = PO
 
 EOF
 
+# repos
 while read repo; do
 
   cat <<EOF >> ${tx_file}
@@ -27,3 +31,18 @@ source_lang = en
 EOF
 
 done < ${repos}
+
+# other repos
+while read repo; do
+
+  project=$(echo ${repo} | cut -f2 -d/)
+
+  cat <<EOF >> ${tx_file}
+[${project}.${project}pot]
+file_filter = ${project}/usr/share/openmediavault/locale/<lang>/${project}.po
+source_file = ${project}/usr/share/openmediavault/locale/${project}.pot
+source_lang = en
+
+EOF
+
+done < ${other}
