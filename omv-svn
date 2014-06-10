@@ -1,0 +1,27 @@
+#!/bin/bash
+
+location="/home/aaron/plugins/"
+omvcode="${location}openmediavault-code/"
+
+# update repos
+${location}plugin-utilities/update_repos
+
+# get revision
+cd ${omvcode}
+revision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
+echo "Revision ${revision}..."
+
+# get version
+cd ${omvcode}deb/openmediavault
+version=$(head -n 1 debian/changelog | cut -f2 -d"(" | cut -f1 -d")")
+echo "Version ${version}"
+
+# make svn package
+fakeroot debian/rules clean binary
+mv -v ../openmediavault_${version}_all.deb ../openmediavault_${version}-svn${revision}_all.deb
+
+# copy to testing directory
+scp ../openmediavault_${version}-svn${revision}_all.deb omv-extras.org:/testing/
+
+# remove .deb
+rm -fv ../openmediavault_${version}-svn${revision}_all.deb
