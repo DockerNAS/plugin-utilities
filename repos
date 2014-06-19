@@ -8,7 +8,7 @@ openmediavault-calibre
 openmediavault-couchpotato
 openmediavault-cups
 openmediavault-dnsmasq
-openmediavault-downloader 
+openmediavault-downloader
 openmediavault-extplorer
 openmediavault-fail2ban
 openmediavault-git
@@ -36,7 +36,7 @@ openmediavault-sabnzbd
 openmediavault-shellinabox
 openmediavault-sickbeard
 openmediavault-skeleton
-openmediavault-snapraid 
+openmediavault-snapraid
 openmediavault-subversion
 openmediavault-supportinfo
 openmediavault-teamspeak3
@@ -44,6 +44,7 @@ openmediavault-transmissionbt
 openmediavault-vdr
 openmediavault-virtualbox
 openmediavault-virtualhosts
+openmediavault-wakealarm
 openmediavault-webdav
 openmediavault-website
 openmediavault-wol
