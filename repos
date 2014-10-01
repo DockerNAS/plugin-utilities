@@ -13,6 +13,7 @@ openmediavault-downloader
 openmediavault-extplorer
 openmediavault-fail2ban
 openmediavault-git
+openmediavault-glusterfs
 openmediavault-greyhole
 openmediavault-headphones
 openmediavault-jdownloader
