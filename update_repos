@@ -75,16 +75,3 @@ else
   cd ${location}${omv_code}
   svn update
 fi
-
-#omvzfs
-if [ ! -d "${location}omvzfs" ]; then
-  cd ${location}
-  git clone git://git.datanom.net/omvzfs.git
-else
-  cd ${location}omvzfs
-  git pull
-fi
-
-cd ${location}omvzfs
-git status
-
