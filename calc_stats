@@ -4,14 +4,29 @@
 
 location="/home/aaron/plugins/"
 output="/var/packages/gitstats/"
-repos="${subdir}repos"
+index="index.html"
+repos="${location}plugin-utilities/repos"
 
 # plugins
 while read repo; do
-
-  echo ${repo}
 
   mkdir -p "${output}/${repo}"
   gitstats "${location}/${repo}" "${output}/${repo}"
 
 done < ${repos}
+
+# index
+echo "<html>" > "${output}${index}"
+echo "<body>" >> "${output}${index}"
+echo "<h1>Stats Index</h1>" >> "${output}${index}"
+echo "<ul>"
+
+while read repo; do
+
+  echo "<li><a href=\"${repo}/\">${repo}</a></li>" >> "${output}${index}"
+
+done < ${repos}
+
+echo "</ul>" >> "${output}${index}"
+echo "<body>" >> "${output}${index}"
+echo "<html>" >> "${output}${index}"
