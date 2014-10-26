@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# need to install gitstats for this to work
+
+location="/home/aaron/plugins/"
+output="/var/packages/gitstats/"
+repos="${subdir}repos"
+
+# plugins
+while read repo; do
+
+  echo ${repo}
+
+  mkdir -p "${output}/${repo}"
+  gitstats "${location}/${repo}" "${output}/${repo}"
+
+done < ${repos}
