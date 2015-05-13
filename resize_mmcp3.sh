@@ -45,3 +45,6 @@ resize2fs ${mmcpart}
 
 # Mount partition
 mount ${mmcpart}
+
+# Remove command to execute script from startup
+sed -i '/^\/root\/resize_mmcp3.sh/d' /etc/rc.local
