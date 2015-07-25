@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# change to code directory
+cd /home/aaron/code/openmediavault-code
+
+# get current revision
+revision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
+
+# update svn repo and get new revision
+svn update
+newrevision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
+
+if [ $revision != $newrevision ]; then
+  # add changed files to git, create commit, and push to github
+  echo "Updating github..."
+  git add *
+  git commit -m "update to revision $newrevision"
+  git push
+else
+  echo "No updates."
+fi
