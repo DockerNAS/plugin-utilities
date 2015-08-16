@@ -13,6 +13,7 @@ openmediavault-deluge
 openmediavault-developer
 openmediavault-dnsmasq
 openmediavault-docker
+openmediavault-docker-gui
 openmediavault-downloader
 openmediavault-emby
 openmediavault-extplorer
