@@ -11,11 +11,19 @@ svn update
 newrevision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
 
 if [ $revision != $newrevision ]; then
-  # add changed files to git, create commit, and push to github
-  echo "Updating github..."
-  git add *
+  # add changed files to git
+  git add $(git ls-files --modified)
+
+  # remove deleted files
+  git rm $(git ls-files --deleted)
+
+  # create commit
   git commit -m "update to revision $newrevision"
+
+  # push to github
   git push
+
+  echo "Updated to $newrevision" >> /home/aaron/omv.log
 else
-  echo "No updates."
+  echo "No updates." >> /home/aaron/omv.log
 fi
