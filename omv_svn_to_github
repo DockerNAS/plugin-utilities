@@ -1,5 +1,7 @@
 #!/bin/bash
 
+log_file="/home/aaron/omv.log"
+
 # change to code directory
 cd /home/aaron/code/openmediavault-code
 
@@ -23,7 +25,7 @@ if [ $revision != $newrevision ]; then
   # push to github
   git push
 
-  echo "Updated to $newrevision" >> /home/aaron/omv.log
+  echo "Updated to $newrevision" >> ${log_file}
 else
-  echo "No updates." >> /home/aaron/omv.log
+  echo "No updates." >> ${log_file}
 fi
