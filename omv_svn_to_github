@@ -3,7 +3,7 @@
 log_file="/home/aaron/omv.log"
 
 # change to code directory
-cd /home/aaron/code/openmediavault-code
+cd /media/12370cfe-0445-4a92-915d-74992edee16e/plugins/openmediavault-code
 
 # get current revision
 revision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
