@@ -2,6 +2,9 @@
 
 log_file="/home/aaron/omv.log"
 
+# svn checkout with branches command
+# svn checkout svn://svn.code.sf.net/p/openmediavault/code
+
 # change to code directory
 cd /media/12370cfe-0445-4a92-915d-74992edee16e/plugins/openmediavault-code
 
@@ -12,9 +15,18 @@ revision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
 svn update
 newrevision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
 
+# make history file for easier viewing on github
+svn log -l 100 > ../history.log
+
+# remove .git dir from shairport
+rm -rfv code/branches/1.x/deb/shairport/shairport/.git
+
 if [ $revision != $newrevision ]; then
+  cd ..
+
   # add changed files to git
-  git add $(git ls-files --modified)
+  git add *
+  # $(git ls-files --modified)
 
   # remove deleted files
   git rm $(git ls-files --deleted)
@@ -29,3 +41,6 @@ if [ $revision != $newrevision ]; then
 else
   echo "No updates." >> ${log_file}
 fi
+
+cd /media/12370cfe-0445-4a92-915d-74992edee16e/plugins/openmediavault-code
+git status
