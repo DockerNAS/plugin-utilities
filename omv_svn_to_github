@@ -19,7 +19,7 @@ newrevision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
 svn log -l 100 > ../history.log
 
 # remove .git dir from shairport
-rm -rfv code/branches/1.x/deb/shairport/shairport/.git
+rm -rfv branches/1.x/deb/shairport/shairport/.git
 
 if [ $revision != $newrevision ]; then
   cd ..
