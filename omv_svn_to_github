@@ -1,20 +1,55 @@
 #!/bin/bash
 
-log_file="/home/aaron/omv.log"
+# svn checkout with branches command
+# svn checkout svn://svn.code.sf.net/p/openmediavault/code
+
+CODE_DIR="/home/aaron/plugins/omv/"
+SVN_DIR="${CODE_DIR}code/"
+SHAIRPORT_GIT_DIR="branches/1.x/deb/shairport/shairport/.git"
 
 # svn checkout with branches command
 # svn checkout svn://svn.code.sf.net/p/openmediavault/code
 
 # change to code directory
-cd /media/12370cfe-0445-4a92-915d-74992edee16e/plugins/openmediavault-code
+cd ${SVN_DIR}
 
 # get current revision
 revision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
 
 # update svn repo and get new revision
-svn update
+svn update | grep -v ${SHAIRPORT_GIT_DIR}
 newrevision=$(svn info | grep "Revision:" | cut -f2 -d":" | tr -d " ")
 
+<<<<<<< HEAD
+let counter=revision+1
+let newrevision=newrevision+1
+
+while [ ${counter} -lt ${newrevision} ]; do
+
+  echo "Revision: ${counter}"
+
+  # go to SVN directory and change to $counter revision
+  cd ${SVN_DIR}
+  svn up -r ${counter}
+
+  # get commit message    
+  msg=$(svn log --revision ${counter} | tail -2 | head -1)
+
+  echo ${msg}
+
+  # go to CODE directory, add/remove files, and create git commit
+  cd ${CODE_DIR}
+
+  # remove .git dir from shairport
+  rm -rf "${SVN_DIR}/${SHAIRPORT_GIT_DIR}"
+
+  # make history file for easier viewing on github
+  svn log -l 200 > ../history.log
+
+  # add changed files to git
+  echo "add files"
+  git add *
+=======
 # make history file for easier viewing on github
 svn log -l 100 > ../history.log
 
@@ -27,20 +62,33 @@ if [ $revision != $newrevision ]; then
   # add changed files to git
   git add *
   # $(git ls-files --modified)
+>>>>>>> a3f58bc943d53e96ac2460833f747841d66b7b7d
 
   # remove deleted files
   git rm $(git ls-files --deleted)
 
   # create commit
-  git commit -m "update to revision $newrevision"
+  git commit -m "revision ${counter} - ${msg}"
+
+  let counter=counter+1
+
+done
+
+let newrevision=newrevision-1
+
+if [ ${revision} != ${newrevision} ]; then
 
   # push to github
   git push
 
-  echo "Updated to $newrevision" >> ${log_file}
-else
-  echo "No updates." >> ${log_file}
+  echo "${revision} updated to ${newrevision}"
+
 fi
 
+<<<<<<< HEAD
+rm -rf "${SVN_DIR}/${SHAIRPORT_GIT_DIR}"
+cd ${CODE_DIR}
+=======
 cd /media/12370cfe-0445-4a92-915d-74992edee16e/plugins/openmediavault-code
+>>>>>>> a3f58bc943d53e96ac2460833f747841d66b7b7d
 git status
