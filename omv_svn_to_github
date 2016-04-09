@@ -37,9 +37,6 @@ while [ ${counter} -lt ${newrevision} ]; do
   # remove .git dir from shairport
   rm -rf "${SVN_DIR}/${SHAIRPORT_GIT_DIR}"
 
-  # make history file for easier viewing on github
-  svn log -l 200 > "${CODE_DIR}/history.log"
-
   # add changed files to git
   echo "add files"
   git add *
